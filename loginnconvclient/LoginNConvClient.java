@@ -8,6 +8,10 @@ import java.net.*;
 import java.util.*;
 
 
+// Importing from same package to avoid writing long variable names 
+import loginnconvclient.DataParser.CommandType;
+import loginnconvclient.DataParser.StrType;
+
 public class LoginNConvClient {
 
     public static LoginPasswdValue values = new LoginPasswdValue();
@@ -43,20 +47,27 @@ public class LoginNConvClient {
         xPanel.add(usrnPanel);
         xPanel.add(psswdPanel);
         
-        JButton loginBttn = new JButton("Login");
         JPanel bttnPanel = new JPanel();
-        bttnPanel.add(loginBttn);
+        JButton signupBttn = new JButton("Sign Up");
+        bttnPanel.add(signupBttn);
         xPanel.add(bttnPanel);
         
+        JButton loginBttn = new JButton("Login");
+        bttnPanel.add(loginBttn);
+        xPanel.add(bttnPanel);
+                
         mainFrame.setLayout(new GridLayout(2,1));
         mainFrame.add(xPanel);
-        
+
         mainFrame.setSize(400,300);
         mainFrame.setVisible(true);  
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        
+
         LoginBttn lBttnHandle = new LoginBttn(usrnTxtFld, psswdTxtFld, nos);
         loginBttn.addActionListener(lBttnHandle);
+
+        SignupBttn sBttnHandle = new SignupBttn(usrnTxtFld, psswdTxtFld, nos);
+        signupBttn.addActionListener(sBttnHandle);
         
         lpdispatcher.run();
         
@@ -77,21 +88,16 @@ public class LoginNConvClient {
         }while(!replyStr.equals("Auth"));
         System.out.println("Authentication reply received\n");
 
-       mainFrame.dispose();
-        
-
         JFrame chatFrame = new JFrame();
-     
-        JTextArea chatArea = new JTextArea(100,150);
-        chatArea.setEditable(true);
+        JButton sendBttn = new JButton("Send");
+        JTextArea chatArea = new JTextArea(10,10);
+        chatArea.setEditable(false);
         
         JTextField chatField = new JTextField(20);
-           JButton sendBttn = new JButton("Send");
         JPanel chatPanel = new JPanel();
-        JPanel chatPanel1 = new JPanel();
+        chatPanel.add(chatArea);
         chatPanel.add(chatField);
         chatPanel.add(sendBttn);
-        chatFrame.add(chatArea);
         chatFrame.add(chatPanel,BorderLayout.SOUTH);
         chatFrame.setSize(400, 300);
         chatFrame.setVisible(true);
@@ -106,7 +112,6 @@ public class LoginNConvClient {
             ;
         }
     }
-    
 }
 
 
@@ -125,7 +130,6 @@ class LoginBttn implements ActionListener{
     
     @Override
     public void actionPerformed(ActionEvent e) {
-        Date d = new Date();
         String usrname = usr.getText();
         String passwd = pass.getText();
         
@@ -133,9 +137,35 @@ class LoginBttn implements ActionListener{
         {
             LoginNConvClient.values.setUsrnameStr(usrname);
             LoginNConvClient.values.setPasswdStr(passwd);
+            LoginNConvClient.values.setButtnPressedType(CommandType.LogIn);
         }
+    }    
+}
+
+
+class SignupBttn implements ActionListener{
+    JTextField usr;
+    JTextField pass;
+    PrintWriter nos;
+    
+    SignupBttn(JTextField usr, JTextField pass, PrintWriter nos){
+        this.usr = usr;
+        this.pass = pass;
+        this.nos = nos;
     }
     
+    @Override
+    public void actionPerformed(ActionEvent e){
+        String usrname = usr.getText();
+        String passwd = pass.getText();
+        
+        if(usrname.length()>0 && passwd.length()>0)
+        {
+            LoginNConvClient.values.setUsrnameStr(usrname);
+            LoginNConvClient.values.setPasswdStr(passwd);
+            LoginNConvClient.values.setButtnPressedType(CommandType.SignUp);
+        }
+    }
 }
 
 
@@ -143,6 +173,7 @@ class LoginBttn implements ActionListener{
 class LoginPasswdValue{
     String usrStr;
     String passStr;
+    CommandType bttnPressed= CommandType.LogIn;
 
     synchronized
          public String getUsrnameStr()
@@ -173,6 +204,12 @@ class LoginPasswdValue{
         }
         return passStr;
     }
+         
+    synchronized 
+            public CommandType getButtnPressedType()
+            {
+                return bttnPressed;
+            }   
     
     synchronized
          public void setUsrnameStr(String usr)
@@ -189,6 +226,12 @@ class LoginPasswdValue{
         this.passStr = pass;
         notify();
     }
+         
+    synchronized 
+            public void setButtnPressedType(CommandType bttn)
+            {
+                bttnPressed = bttn;
+            }
 }
 
 

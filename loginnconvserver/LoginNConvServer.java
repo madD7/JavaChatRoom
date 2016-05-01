@@ -3,9 +3,7 @@ package loginnconvserver;
 import java.net.*;
 import java.io.*;
 
-
 public class LoginNConvServer {
-
 
     public static void main(String[] args) throws Exception {
         System.out.println("Server Signing ON");
@@ -31,11 +29,9 @@ public class LoginNConvServer {
         
         System.out.println("Username = "+ usrnStr+"\n");
         System.out.println("Password = "+ psswdStr+"\n");
-        
-        
+   
         nos.println("Auth");
         
         System.out.println("Server Singing OFF");
-    }
-    
+    }    
 }
