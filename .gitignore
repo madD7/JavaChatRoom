@@ -10,3 +10,10 @@
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
+/loginnconvclient/JavaApplication8/nbproject/private/
+/JavaApplication10/nbproject/private/
+/LoginNConvClient/nbproject/private/
+/LoginNConvClient/LoginNConvClient/nbproject/private/
+/LoginNConvServer/LoginNConvServer/nbproject/private/
+/LoginNConvClient/LoginNConvClient/build/
+/LoginNConvServer/LoginNConvServer/build/
