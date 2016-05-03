@@ -1,4 +1,4 @@
-package loginnconvclient;
+package loginnconvserver;
 
 
 public class DataParser {
@@ -56,7 +56,12 @@ public class DataParser {
         String charstrtyp = data.substring(0, data.indexOf('|'));
         String charcmdtyp = data.substring(data.indexOf('|')+1);
         
-        data = charcmdtyp.substring(charcmdtyp.indexOf('|')+1);    
+        data = charcmdtyp.substring(charcmdtyp.indexOf('|')+1);
+        
+//        System.out.println(charstrtyp);
+//        System.out.println(charcmdtyp);
+//        System.out.println(data);
+        
         return data;
     }
 }

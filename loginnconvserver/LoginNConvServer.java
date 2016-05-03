@@ -9,6 +9,7 @@ public class LoginNConvServer {
         System.out.println("Server Signing ON");
         ServerSocket ss = new ServerSocket(9081);
         Socket soc = ss.accept();
+        DataParser parser = new DataParser();
         
         BufferedReader nis = new BufferedReader(
                     new InputStreamReader(
@@ -27,9 +28,14 @@ public class LoginNConvServer {
         String usrnStr = nis.readLine();
         String psswdStr = nis.readLine();
         
-        System.out.println("Username = "+ usrnStr+"\n");
-        System.out.println("Password = "+ psswdStr+"\n");
+        System.out.println("Username = "+ usrnStr);
+        System.out.println("Password = "+ psswdStr);
    
+        usrnStr = parser.getRxData(usrnStr);
+        psswdStr = parser.getRxData(psswdStr);
+        System.out.println(usrnStr);
+        System.out.println(psswdStr);        
+        
         nos.println("Auth");
         
         System.out.println("Server Singing OFF");

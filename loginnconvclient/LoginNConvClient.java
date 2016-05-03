@@ -86,7 +86,7 @@ public class LoginNConvClient {
                JOptionPane.showMessageDialog(null, "Authentication Failed"); 
             }
         }while(!replyStr.equals("Auth"));
-        System.out.println("Authentication reply received\n");
+        System.out.println("Authentication reply received");
 
         JFrame chatFrame = new JFrame();
         JButton sendBttn = new JButton("Send");
@@ -178,10 +178,10 @@ class LoginPasswdValue{
     synchronized
          public String getUsrnameStr()
     {
-        System.out.println("getUsrname\n");
+        System.out.println("getUsrname");
         if(usrStr == null || usrStr.length() < 0)
         {
-            System.out.println("waiting 4 usrname\n");
+            System.out.println("waiting 4 usrname");
             try
             {
                 wait();
@@ -193,10 +193,10 @@ class LoginPasswdValue{
     synchronized
          public String getPasswdStr()
     {
-         System.out.println("getPsswd\n");
+         System.out.println("getPsswd");
         if(passStr == null || passStr.length() < 0)
         {
-            System.out.println("waiting 4 psswd\n");
+            System.out.println("waiting 4 psswd");
             try
             {
                 wait();
@@ -214,7 +214,7 @@ class LoginPasswdValue{
     synchronized
          public void setUsrnameStr(String usr)
     {
-        System.out.println("Set usrname\n");
+        System.out.println("Set usrname");
         this.usrStr = usr;
         notify();
     }
@@ -222,7 +222,7 @@ class LoginPasswdValue{
     synchronized
          public void setPasswdStr(String pass)
     {
-        System.out.println("Set passwd\n");
+        System.out.println("Set passwd");
         this.passStr = pass;
         notify();
     }
